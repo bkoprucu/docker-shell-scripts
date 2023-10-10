@@ -4,7 +4,7 @@ function containers_using_volume {
 }
 
 if [ -z $1 ]; then
-    echo "Usage: dvolume_backup [volume_name]" >&2
+    echo "Usage: $(basename $0) [volume name]" >&2
     exit 1
 fi
 

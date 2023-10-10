@@ -1,4 +1,5 @@
 #!/bin/bash
+# Usage: docker-run-redis-cli.sh [version] <args>
 argver=$1
 if [ $# -gt 1 ] && [ ${#argver} -eq 5 ]; then
     ver=$argver

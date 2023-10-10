@@ -5,9 +5,9 @@ function containers_using_volume {
 
 filename=$2
 if [ -z $filename ]; then
-    echo "Usage: dvolume_restore [volume_name] [file_name]" >&2
+    echo "Usage: $(basename $0) [volume name] [file name]" >&2
     exit 1
-fi;	
+fi;
 
 
 echo "Attempting to restore volume $1 from file $filename"
@@ -18,7 +18,7 @@ if [[ -n $containers ]]; then
     echo "$containers" >&2
     exit 1
 fi
-  
+
 echo "Restoring volume $1 from $filename"
 docker run -v $1:/volume -v .:/backup --rm loomchild/volume-backup restore -v $filename
 echo "Restore complete"

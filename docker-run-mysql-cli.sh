@@ -1,6 +1,6 @@
 #!/bin/bash
 
-default_ver="8.0.33"
+ver="8.0.33" # Default version
 
 function usage {
     echo -n "Usage $(basename $0) [-v] version ..." >&2
@@ -18,9 +18,8 @@ if [ $opt = "v" ]; then
         $( usage )
     fi
 else
-    ver=$default_ver
     args=${@}
-fi	
+fi
 container_name="mysql_cli_$RANDOM"
-echo  "Running mqsql client version: $ver. Container: $container_name. Args: $args"
+echo "Running mqsql client version: $ver. Container: $container_name. Args: $args"
 docker run -it --rm -m 512MB --name $container_name --network=host mysql:$ver mysql $args
