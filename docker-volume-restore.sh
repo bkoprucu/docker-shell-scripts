@@ -5,7 +5,7 @@ function containers_using_volume {
 
 filename=$2
 if [ -z $filename ]; then
-    echo "Usage: dvolume_restore [volume_name] [file_name]"
+    echo "Usage: dvolume_restore [volume_name] [file_name]" >&2
     exit 1
 fi;	
 
@@ -14,8 +14,8 @@ echo "Attempting to restore volume $1 from file $filename"
 
 containers=$( containers_using_volume $1 )
 if [[ -n $containers ]]; then
-    echo "Volume $1 is used by following container(s):"
-    echo "$containers"
+    echo "Volume $1 is used by following container(s):" >&2
+    echo "$containers" >&2
     exit 1
 fi
   
