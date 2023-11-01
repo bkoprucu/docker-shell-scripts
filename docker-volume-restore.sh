@@ -5,12 +5,9 @@ function containers_using_volume {
 
 filename=$2
 if [ -z $filename ]; then
-    echo "Usage: $(basename $0) [volume name] [file name]" >&2
+    echo -e "\nUsage: $(basename $0) [volume name] [file name]\n" >&2
     exit 1
 fi;
-
-
-echo "Attempting to restore volume $1 from file $filename"
 
 containers=$( containers_using_volume $1 )
 if [[ -n $containers ]]; then
@@ -19,6 +16,7 @@ if [[ -n $containers ]]; then
     exit 1
 fi
 
+args=${@:3}
+
 echo "Restoring volume $1 from $filename"
-docker run -v $1:/volume -v .:/backup --rm loomchild/volume-backup restore -v $filename
-echo "Restore complete"
+docker run -v $1:/volume -v .:/backup --rm loomchild/volume-backup restore $args -v $filename

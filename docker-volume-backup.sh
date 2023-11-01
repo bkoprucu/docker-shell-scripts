@@ -4,7 +4,7 @@ function containers_using_volume {
 }
 
 if [ -z $1 ]; then
-    echo "Usage: $(basename $0) [volume name]" >&2
+    echo -e "\nUsage: $(basename $0) [volume name]\n" >&2
     exit 1
 fi
 
@@ -15,7 +15,7 @@ if [[ -n $containers ]]; then
     exit 1
 fi
 
-echo "Backing up $1"
+echo "Backing up $1 to $filename"
 filename="$1_$(date +%Y-%m-%d_%H%M%S).tar.bz2"
 docker run -v $1:/volume -v .:/backup --rm loomchild/volume-backup backup -v $filename
-echo "Backup saved into $filename"
+

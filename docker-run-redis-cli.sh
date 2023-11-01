@@ -1,11 +1,22 @@
 #!/bin/bash
-# Usage: docker-run-redis-cli.sh [version] <args>
-argver=$1
-if [ $# -gt 1 ] && [ ${#argver} -eq 5 ]; then
-    ver=$argver
-    args=${@:2}
+
+ver="latest" # Default version
+
+function usage {
+    echo -e "\nUsage $(basename $0) [-v] version ...\n" >&2
+}
+
+getopts 'v:' opt
+
+if [ $opt = "v" ]; then
+    if [[ -n $OPTARG ]]; then
+        ver=$OPTARG
+        args=${@:3}
+    else
+        $( usage )
+        exit 1
+    fi
 else
-    ver="latest"
     args=${@}
 fi
 
