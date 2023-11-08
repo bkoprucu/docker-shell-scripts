@@ -40,35 +40,56 @@ $ _
 
 
 
-#### docker-run-mysql-cli.sh
+#### docker-run-*.sh
 
-Runs mysql client as if it is installed to current host:
+Conveniently runs docker images
+
+`docker-run-[mysql | mysql-cli | postgresql...].sh [-h] [-v version] [-n container-name] [-o volume-name] [args]`
+
+`-h`: Print usage
+
+`-v version:` Provide a custom version of the image, instead of the default defined in the script.
+
+`-n container-name:` Provide a custom container name.
+
+`-o volume-name:` Provide a custom volume name.
+
+
+##### Samples
+```
+$ docker-run-mysql.sh -v 8.2 -h 127.0.0.1
+Running MySql version 8.2. Args: -h 127.0.0.1
+f48a379748e8b12cca4dfc00fc6888d91dc6cb62a3a36fc3e9b2da2d281aa788
+$ _
+```
 
 ```
-$ docker-run-mysql-cli.sh -h mydbhost -u myuser -p mydb
-Running mqsql client version: 8.0.35. Args: -h mydbhost -u wpuser -p wpdb
+$ docker-run-mysql-cli.sh -v 8.2 -h 127.0.0.1 -u myuser -p
+Running mqsql client 8.2. Args: -h 127.0.0.1 -u wpuser -p
 Enter password: 
-...
 ...
 mysql> _
 ```
 
-Define Mysql version with `-v`:
 ```
-$ docker-run-mysql-cli.sh -v 8.2 -h mydbhost -u myuser -p mydb
-Running mqsql client version: 8.2. Args: -h mydbhost -u wpuser -p wpdb
-Enter password: 
-...
-...
-mysql> _
+$ docker-run-postgresql.sh -v 12 -n postgres12 -o postgres12v
 ```
 
-#### docker-run-redis-cli.sh
-
-Runs redis cli as if it is installed to current host:
-
 ```
-docker-run-redis-cli.sh -v 7
-Running redis-cli version: 7. Args: 
-127.0.0.1:6379> _
+$ docker-run-postgresql-cli.sh -v 12 -h localhost -U postgres -W
+
+Running PostgreSql client 12. Container: postgresql-cli-32354. Args: -h localhost -U postgres -W
+Password: 
+psql (12.15 (Debian 12.15-1.pgdg120+1))
+Type "help" for help.
+
+postgres=# _
+```
+```
+docker-run-redis.sh -v 7.0 -n redis70 -o redis70
+```
+```
+docker-run-redis-cli.sh -v 7 -h myredisserver
+Running redis-cli version: 7. Args: -h myredisserver
+myredisserver:6379> _
 ```
