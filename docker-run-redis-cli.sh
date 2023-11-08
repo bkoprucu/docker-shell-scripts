@@ -1,24 +1,12 @@
 #!/bin/bash
 
-ver="latest" # Default version
+version="latest" # Default version
+container_name="redis_cli_$RANDOM"
 
-function usage {
-    echo -e "\nUsage $(basename $0) [-v] version ...\n" >&2
-}
+source parse_args.sh
 
-getopts 'v:' opt
+echo -e "\nRunning redis-cli $version. Container: $container_name  Args: $args"
+### Useful args:
+# -h : host
 
-if [ $opt = "v" ]; then
-    if [[ -n $OPTARG ]]; then
-        ver=$OPTARG
-        args=${@:3}
-    else
-        $( usage )
-        exit 1
-    fi
-else
-    args=${@}
-fi
-
-echo "Running redis-cli version: $ver. Args: $args"
-docker run -it --rm -m 512MB --name redis_cli_$RANDOM --network=host redis:$ver redis-cli $args
+docker run -it --rm -m 512MB --name $container_name --network=host redis:$version redis-cli $args
