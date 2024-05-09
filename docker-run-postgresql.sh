@@ -1,5 +1,5 @@
 #!/bin/bash
-version="15"
+version="16"
 volume_name="postgresql_$version"
 container_name="postgresql_$RANDOM"
 
@@ -8,12 +8,13 @@ host_port=5432
 
 source parse_args.sh
 
-#if [ -z $(docker volume ls -q | grep $volume_name) ]; then
-#	echo "Creating volume $volume_name"
-# echo "Using volume $(docker volume create $volume_name)"
-#fi
-
 # Default username: postgres
+# Default db: postgres
+
+# Environment variables:
+# POSTGRES_PASSWORD
+# POSTGRES_USER
+# POSTGRES_DB
 
 echo -e -n "\nRunning PostgreSql $version. Container: $container_name. "
 echo "Volume: $(docker volume create $volume_name). Args: $args"
